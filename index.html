@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonemade 30-Day Social Media Content Calendar</title>
+    <style>
+        :root {
+            /* Brand Colors */
+            --primary-color: #37302E;
+            --secondary-color: #CFDAD7;
+            --background-color: #EBEBE4;
+            --text-color: #37302E;
+            --instagram-color: #C13584;
+            --tiktok-color: #000000;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .calendar {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .calendar-header {
+            font-family: 'HanleyPro-Sans', sans-serif;
+            text-align: center;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .calendar-day {
+            background-color: var(--secondary-color);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .calendar-day.instagram {
+            border: 2px solid var(--instagram-color);
+        }
+
+        .calendar-day.tiktok {
+            border: 2px solid var(--tiktok-color);
+        }
+
+        .calendar-day.completed {
+            background-color: rgba(55, 48, 46, 0.1);
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .day-date {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .day-task {
+            margin-bottom: 10px;
+        }
+
+        .day-task.completed {
+            text-decoration: line-through;
+            color: rgba(55, 48, 46, 0.6);
+        }
+
+        .day-notes {
+            font-style: italic;
+            color: rgba(55, 48, 46, 0.7);
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calendar">
+        <h1 class="calendar-header">30-Day Social Media Content Calendar</h1>
+        <div id="calendar-days" class="calendar-grid"></div>
+    </div>
+
+    <script>
+        // Comprehensive 32-day social media content schedule
+        const initialSchedule = [
+            // Week 1 (Dec 16 - Dec 22)
+            { 
+                id: 1,
+                date: 'Mon, Dec 16, 2024', 
+                tasks: 'Instagram Reel + Like and comment on 5 target accounts before and after posting',
+                platform: 'Instagram',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 2,
+                date: 'Tue, Dec 17, 2024', 
+                tasks: 'Blog post published, share link in Instagram Story + respond to story interactions',
+                platform: 'Blog/Instagram',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 3,
+                date: 'Wed, Dec 18, 2024', 
+                tasks: 'TikTok video posted + Interact for 10 minutes before and after posting',
+                platform: 'TikTok',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 4,
+                date: 'Thu, Dec 19, 2024', 
+                tasks: 'Instagram Carousel Post highlighting behind-the-scenes + pre-and-post engagement (5 comments)',
+                platform: 'Instagram',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 5,
+                date: 'Fri, Dec 20, 2024', 
+                tasks: 'TikTok trend-based video + interact for 10 minutes before and after',
+                platform: 'TikTok',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 6,
+                date: 'Sat, Dec 21, 2024', 
+                tasks: 'Instagram Story Q&A + respond to at least 5 viewer questions',
+                platform: 'Instagram',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 7,
+                date: 'Sun, Dec 22, 2024', 
+                tasks: 'Instagram Reel (educational content) + Like/comment on 5 similar creator posts before/after',
+                platform: 'Instagram',
+                completed: false,
+                notes: ''
+            },
+            // Week 2 (Dec 23 - Dec 29)
+            { 
+                id: 8,
+                date: 'Mon, Dec 23, 2024', 
+                tasks: 'TikTok video (holiday theme) + interact 10 min before/after',
+                platform: 'TikTok',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 9,
+                date: 'Tue, Dec 24, 2024', 
+                tasks: 'Instagram Post (holiday wishes) + reply to all comments',
+                platform: 'Instagram',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 10,
+                date: 'Wed, Dec 25, 2024', 
+                tasks: 'TikTok short clip (holiday greeting) + comment on 5 related posts',
+                platform: 'TikTok',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 11,
+                date: 'Thu, Dec 26, 2024', 
+                tasks: 'Instagram Reel (year-in-review) + engage 5 accounts before/after',
+                platform: 'Instagram',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 12,
+                date: 'Fri, Dec 27, 2024', 
+                tasks: 'TikTok video (highlighting services) + 10 min engagement',
+                platform: 'TikTok',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 13,
+                date: 'Sat, Dec 28, 2024', 
+                tasks: 'Instagram Story poll (ask followers about interests) + respond to DMs',
+                platform: 'Instagram',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 14,
+                date: 'Sun, Dec 29, 2024', 
+                tasks: 'Instagram Reel (behind the scenes) + 5 accounts engagement',
+                platform: 'Instagram',
+                completed: false,
+                notes: ''
+            },
+            // Week 3 (Dec 30 - Jan 5)
+            { 
+                id: 15,
+                date: 'Mon, Dec 30, 2024', 
+                tasks: 'TikTok video (tips) + 10 min engagement',
+                platform: 'TikTok',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 16,
+                date: 'Tue, Dec 31, 2024', 
+                tasks: 'Instagram Story countdown to New Year + reply to DMs',
+                platform: 'Instagram',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 17,
+                date: 'Wed, Jan 1, 2025', 
+                tasks: 'TikTok New Year\'s greeting + 10 min engagement',
+                platform: 'TikTok',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 18,
+                date: 'Thu, Jan 2, 2025', 
+                tasks: 'Instagram Reel (New Year goals) + 5 accounts engagement',
+                platform: 'Instagram',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 19,
+                date: 'Fri, Jan 3, 2025', 
+                tasks: 'TikTok "day in the life" + 10 min engagement',
+                platform: 'TikTok',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 20,
+                date: 'Sat, Jan 4, 2025', 
+                tasks: 'Instagram Post (inspirational quote) + respond to comments',
+                platform: 'Instagram',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 21,
+                date: 'Sun, Jan 5, 2025', 
+                tasks: 'Instagram Story Q&A about upcoming content + respond to 5 questions',
+                platform: 'Instagram',
+                completed: false,
+                notes: ''
+            },
+            // Week 4 (Jan 6 - Jan 12)
+            { 
+                id: 22,
+                date: 'Mon, Jan 6, 2025', 
+                tasks: 'TikTok tutorial + 10 min engagement',
+                platform: 'TikTok',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 23,
+                date: 'Tue, Jan 7, 2025', 
+                tasks: 'Blog post shared to Instagram Story + respond to story replies',
+                platform: 'Blog/Instagram',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 24,
+                date: 'Wed, Jan 8, 2025', 
+                tasks: 'TikTok challenge participation + 10 min engagement',
+                platform: 'TikTok',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 25,
+                date: 'Thu, Jan 9, 2025', 
+                tasks: 'Instagram Reel (educational tip) + 5 accounts engagement',
+                platform: 'Instagram',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 26,
+                date: 'Fri, Jan 10, 2025', 
+                tasks: 'TikTok video featuring customer testimonial + 10 min engagement',
+                platform: 'TikTok',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 27,
+                date: 'Sat, Jan 11, 2025', 
+                tasks: 'Instagram Carousel Post (before/after) + reply to comments',
+                platform: 'Instagram',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 28,
+                date: 'Sun, Jan 12, 2025', 
+                tasks: 'Instagram Reel (inspirational content) + 5 accounts engagement',
+                platform: 'Instagram',
+                completed: false,
+                notes: ''
+            },
+            // Week 5 (Partial Week - Jan 13 - Jan 16)
+            { 
+                id: 29,
+                date: 'Mon, Jan 13, 2025', 
+                tasks: 'TikTok Q&A + 10 min engagement',
+                platform: 'TikTok',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 30,
+                date: 'Tue, Jan 14, 2025', 
+                tasks: 'Instagram Story (poll) + respond to poll participants',
+                platform: 'Instagram',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 31,
+                date: 'Wed, Jan 15, 2025', 
+                tasks: 'TikTok video (case study) + 10 min engagement',
+                platform: 'TikTok',
+                completed: false,
+                notes: ''
+            },
+            { 
+                id: 32,
+                date: 'Thu, Jan 16, 2025', 
+                tasks: 'Instagram Reel (final day recap) + engage with 5 accounts before/after',
+                platform: 'Instagram',
+                completed: false,
+                notes: ''
+            }
+        ];
+
+        function renderCalendar() {
+            const calendarDays = document.getElementById('calendar-days');
+            calendarDays.innerHTML = '';
+
+            initialSchedule.forEach(day => {
+                const dayElement = document.createElement('div');
+                dayElement.classList.add('calendar-day');
+                
+                if (day.platform.toLowerCase().includes('instagram')) {
+                    dayElement.classList.add('instagram');
+                } else if (day.platform.toLowerCase().includes('tiktok')) {
+                    dayElement.classList.add('tiktok');
+                }
+
+                if (day.completed) {
+                    dayElement.classList.add('completed');
+                }
+
+                dayElement.innerHTML = `
+                    <div class="day-header">
+                        <div class="day-date">${day.date}</div>
+                        <input type="checkbox" ${day.completed ? 'checked' : ''} onchange="toggleCompletion(${day.id})">
+                    </div>
+                    <div class="day-task ${day.completed ? 'completed' : ''}">
+                        ${day.tasks}
+                    </div>
+                    ${day.notes ? `<div class="day-notes">Notes: ${day.notes}</div>` : ''}
+                `;
+
+                calendarDays.appendChild(dayElement);
+            });
+        }
+
+        function toggleCompletion(id) {
+            const dayToUpdate = initialSchedule.find(day => day.id === id);
+            if (dayToUpdate) {
+                dayToUpdate.completed = !dayToUpdate.completed;
+                renderCalendar();
+            }
+        }
+
+        // Initial render
+        renderCalendar();
+    </script>
+</body>
+</html>
