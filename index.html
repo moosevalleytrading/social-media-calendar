@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emilie's 30-Day Social Media Content Calendar</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emilie's Social Media & SEO Dashboard</title>
   
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
@@ -20,14 +20,14 @@
       --accent-color: #27ae60;
       --accent-hover: #2ecc71;
     }
-
+    
     /* Global Styles */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-
+    
     body {
       font-family: 'Roboto', sans-serif;
       background-color: var(--background-color);
@@ -35,14 +35,14 @@
       line-height: 1.6;
       padding: 20px;
     }
-
-    /* =========== Calendar Styles =========== */
+    
+    /* =========== Calendar (Social Media Schedule) Styles =========== */
     .calendar {
       max-width: 1400px;
-      margin: 0 auto;
+      margin: 0 auto 40px;
       padding: 20px;
     }
-
+    
     .calendar-header {
       font-family: 'Montserrat', sans-serif;
       text-align: center;
@@ -52,13 +52,13 @@
       font-size: 2.5rem;
       letter-spacing: 2px;
     }
-
+    
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 20px;
     }
-
+    
     .calendar-day {
       background-color: var(--secondary-color);
       border-radius: 16px;
@@ -67,60 +67,43 @@
       transition: all 0.3s ease;
       position: relative;
     }
-
+    
     .calendar-day:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     }
-
-    .calendar-day.instagram {
-      border: 2px solid var(--instagram-color);
-    }
-
-    .calendar-day.tiktok {
-      border: 2px solid var(--tiktok-color);
-    }
-
-    .calendar-day.completed {
-      background-color: rgba(55, 48, 46, 0.1);
-    }
-
+    
     .day-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
+      align-items: baseline;
+      margin-bottom: 10px;
     }
-
+    
     .day-date {
       font-weight: bold;
       color: var(--primary-color);
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
-
+    
+    .day-day {
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--primary-color);
+    }
+    
     .day-task {
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       font-size: 1rem;
     }
-
-    .day-task.completed {
-      text-decoration: line-through;
-      color: rgba(55, 48, 46, 0.6);
-    }
-
+    
     .day-notes {
       font-style: italic;
       color: rgba(55, 48, 46, 0.7);
       margin-top: 10px;
       font-size: 0.9rem;
     }
-
-    @media (max-width: 768px) {
-      .calendar-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
+    
     /* =========== SEO Dashboard Styles =========== */
     #seo-dashboard {
       max-width: 1200px;
@@ -130,24 +113,24 @@
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
-
+    
     #seo-dashboard h2 {
       text-align: center;
       color: var(--primary-color);
       margin-bottom: 1rem;
       font-family: 'Montserrat', sans-serif;
     }
-
+    
     #seo-dashboard .section-title {
       font-size: 1.25rem;
       margin-bottom: 0.5rem;
       color: var(--primary-color);
       margin-top: 2rem;
     }
-
+    
     #seo-dashboard textarea {
       width: 100%;
-      height: 200px;
+      height: 250px;
       font-family: monospace;
       margin-bottom: 1rem;
       padding: 10px;
@@ -155,7 +138,7 @@
       border-radius: 5px;
       resize: vertical;
     }
-
+    
     #seo-dashboard button {
       background: var(--accent-color);
       color: #fff;
@@ -167,11 +150,11 @@
       border-radius: 5px;
       transition: background 0.3s ease;
     }
-
+    
     #seo-dashboard button:hover {
       background: var(--accent-hover);
     }
-
+    
     #seo-dashboard .chart-container {
       background: #fff;
       border-radius: 5px;
@@ -179,12 +162,12 @@
       margin-bottom: 2rem;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
-
+    
     #seo-dashboard canvas {
       width: 100%;
       max-height: 400px;
     }
-
+    
     #seo-error-container {
       color: #c0392b;
       font-weight: bold;
@@ -193,315 +176,302 @@
   </style>
 </head>
 <body>
-
-  <!-- =========== 30-Day Calendar Section =========== -->
+  
+  <!-- =========== Social Media Content Calendar Section =========== -->
   <div class="calendar">
-      <h1 class="calendar-header">30-Day Social Media Content Calendar</h1>
-      <div id="calendar-days" class="calendar-grid"></div>
+    <h1 class="calendar-header">Social Media Content Calendar</h1>
+    <div id="calendar-days" class="calendar-grid"></div>
   </div>
-
+  
   <!-- =========== SEO Dashboard Section =========== -->
   <div id="seo-dashboard">
-      <h2>SEO Dashboard</h2>
-      
-      <p class="section-title">1) Paste Your CSV Data Below</p>
-      <textarea id="csvTextarea"></textarea>
-      <button id="parseButton">Parse &amp; Generate Charts</button>
-      <div id="seo-error-container"></div>
-
-      <h3 class="section-title">2) SEO Metrics Visualization</h3>
-      
-      <div class="chart-container">
-          <canvas id="trafficChart"></canvas>
-      </div>
-
-      <div class="chart-container">
-          <canvas id="keywordPositionChart"></canvas>
-      </div>
+    <h2>SEO Dashboard</h2>
+    
+    <p class="section-title">1) Paste Your SEO CSV Data Below</p>
+    <textarea id="csvTextarea"></textarea>
+    <button id="parseButton">Parse &amp; Generate Charts</button>
+    <div id="seo-error-container"></div>
+    
+    <h3 class="section-title">2) SEO Metrics Visualization</h3>
+    
+    <div class="chart-container">
+      <canvas id="trafficChart"></canvas>
+    </div>
+    
+    <div class="chart-container">
+      <canvas id="keywordPositionChart"></canvas>
+    </div>
   </div>
-
-  <!-- =========== Existing Calendar Script =========== -->
-  <script>
-    // Comprehensive 32-day social media content schedule
-    const initialSchedule = [
-        { 
-            id: 1,
-            date: 'Mon, Dec 16, 2024', 
-            tasks: 'Instagram Reel + Like and comment on 5 target accounts before and after posting',
-            platform: 'Instagram',
-            completed: false,
-            notes: ''
-        },
-        /* ... truncated for brevity ... */
-        { 
-            id: 32,
-            date: 'Thu, Jan 16, 2025', 
-            tasks: 'Instagram Reel (final day recap) + engage with 5 accounts before/after',
-            platform: 'Instagram',
-            completed: false,
-            notes: ''
-        }
-    ];
-
-    function renderCalendar() {
-      const calendarDays = document.getElementById('calendar-days');
-      calendarDays.innerHTML = '';
-
-      initialSchedule.forEach(day => {
-          const dayElement = document.createElement('div');
-          dayElement.classList.add('calendar-day');
-          
-          if (day.platform.toLowerCase().includes('instagram')) {
-              dayElement.classList.add('instagram');
-          } else if (day.platform.toLowerCase().includes('tiktok')) {
-              dayElement.classList.add('tiktok');
-          }
-
-          if (day.completed) {
-              dayElement.classList.add('completed');
-          }
-
-          dayElement.innerHTML = `
-              <div class="day-header">
-                  <div class="day-date">${day.date}</div>
-                  <input type="checkbox" ${day.completed ? 'checked' : ''} onchange="toggleCompletion(${day.id})">
-              </div>
-              <div class="day-task ${day.completed ? 'completed' : ''}">
-                  ${day.tasks}
-              </div>
-              ${day.notes ? `<div class="day-notes">Notes: ${day.notes}</div>` : ''}
-          `;
-
-          calendarDays.appendChild(dayElement);
-      });
-    }
-
-    function toggleCompletion(id) {
-      const dayToUpdate = initialSchedule.find(day => day.id === id);
-      if (dayToUpdate) {
-          dayToUpdate.completed = !dayToUpdate.completed;
-          renderCalendar();
-      }
-    }
-
-    // Initial render
-    renderCalendar();
-  </script>
-
-  <!-- =========== SEO Dashboard Dependencies =========== -->
+  
+  <!-- =========== Scripts =========== -->
   <!-- PapaParse for CSV parsing -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
   <!-- Chart.js for charts -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
-
-  <!-- =========== SEO Dashboard Script =========== -->
+  
   <script>
-    /********************************************
-     * 1) CSV DATA SECTION
-     *    Replace the contents of the `csvData` variable 
-     *    with your own CSV if you want it pre-filled,
-     *    OR just leave it empty and paste CSV into
-     *    the textarea at runtime.
-     ********************************************/
-    var csvData = `
-#    Keyword    Volume    KD    CPC    Previous organic traffic    Current organic traffic    Organic traffic change    ...
-1    does beef tallow clog pores    1000    0    0.03    0    32    32    ...
-2    beef tallow skin before and after    1800    0    0.23    ...
-... (truncate or remove if you prefer to paste in real-time)
-`;
-
-    // DOM elements
-    const csvTextarea = document.getElementById("csvTextarea");
-    const parseButton = document.getElementById("parseButton");
-    const errorContainer = document.getElementById("seo-error-container");
-
-    // Pre-populate the text area with default CSV (optional)
-    csvTextarea.value = csvData.trim();
-
-    // Chart.js references
-    let trafficChart;
-    let keywordPositionChart;
-
-    // On-click event to parse CSV and generate charts
-    parseButton.addEventListener("click", () => {
-      errorContainer.textContent = ""; // Clear any previous errors
-
-      // Read CSV data from textarea
-      const inputData = csvTextarea.value.trim();
-
+    /***************************************
+     * 1) Social Media Content Calendar Data
+     ***************************************/
+    const socialMediaSchedule = [
+      { id: 1, date: '2025-02-05', day: 'Wednesday', contentType: 'Carousel Post', postIdea: 'Show behind the scenes of product creation.', instagramPostType: 'Carousel Post' },
+      { id: 2, date: '2025-02-06', day: 'Thursday', contentType: 'Story', postIdea: 'Share a quick tip or teaser for an upcoming product.', instagramPostType: 'Story' },
+      { id: 3, date: '2025-02-07', day: 'Friday', contentType: 'Reel', postIdea: 'Quick demo of product usage.', instagramPostType: 'Reel' },
+      { id: 4, date: '2025-02-08', day: 'Saturday', contentType: 'Post with Image', postIdea: 'Feature a customer testimonial with product image.', instagramPostType: 'Post with Image' },
+      { id: 5, date: '2025-02-09', day: 'Sunday', contentType: 'Poll', postIdea: 'Engage followers with a poll about their favorite product.', instagramPostType: 'Poll (Story)' },
+      { id: 6, date: '2025-02-10', day: 'Monday', contentType: 'Quote', postIdea: 'Motivational quote to kickstart the week.', instagramPostType: 'Post with Image' },
+      { id: 7, date: '2025-02-11', day: 'Tuesday', contentType: 'Carousel Post', postIdea: 'Share a step‑by‑step tutorial.', instagramPostType: 'Carousel Post' },
+      { id: 8, date: '2025-02-12', day: 'Wednesday', contentType: 'Story', postIdea: 'Behind the scenes of a photoshoot.', instagramPostType: 'Story' },
+      { id: 9, date: '2025-02-13', day: 'Thursday', contentType: 'Reel', postIdea: 'Before &amp; after transformation reel.', instagramPostType: 'Reel' },
+      { id: 10, date: '2025-02-14', day: 'Friday', contentType: 'Post with Image', postIdea: 'Valentine’s themed post highlighting benefits.', instagramPostType: 'Post with Image' },
+      { id: 11, date: '2025-02-15', day: 'Saturday', contentType: 'Meme', postIdea: 'Lighthearted skincare meme.', instagramPostType: 'Meme (Post)' },
+      { id: 12, date: '2025-02-16', day: 'Sunday', contentType: 'Testimonial', postIdea: 'Share a glowing customer review.', instagramPostType: 'Post with Image' },
+      { id: 13, date: '2025-02-17', day: 'Monday', contentType: 'Carousel Post', postIdea: 'Step‑by‑step guide to using the product.', instagramPostType: 'Carousel Post' },
+      { id: 14, date: '2025-02-18', day: 'Tuesday', contentType: 'Story', postIdea: 'Quick tip about the product’s ingredients.', instagramPostType: 'Story' },
+      { id: 15, date: '2025-02-19', day: 'Wednesday', contentType: 'Reel', postIdea: 'Dynamic demonstration reel.', instagramPostType: 'Reel' },
+      { id: 16, date: '2025-02-20', day: 'Thursday', contentType: 'Post with Image', postIdea: 'High‑quality product shot with a catchy caption.', instagramPostType: 'Post with Image' },
+      { id: 17, date: '2025-02-21', day: 'Friday', contentType: 'Q&A', postIdea: 'Ask followers a skincare question.', instagramPostType: 'Q&A (Story)' },
+      { id: 18, date: '2025-02-22', day: 'Saturday', contentType: 'Interactive', postIdea: 'Encourage user‑generated content.', instagramPostType: 'Story' },
+      { id: 19, date: '2025-02-23', day: 'Sunday', contentType: 'Carousel Post', postIdea: 'Showcase different ways to use the product.', instagramPostType: 'Carousel Post' },
+      { id: 20, date: '2025-02-24', day: 'Monday', contentType: 'Story', postIdea: 'Share a behind the scenes snippet.', instagramPostType: 'Story' },
+      { id: 21, date: '2025-02-25', day: 'Tuesday', contentType: 'Reel', postIdea: 'Fast‑paced reel highlighting benefits.', instagramPostType: 'Reel' },
+      { id: 22, date: '2025-02-26', day: 'Wednesday', contentType: 'Post with Image', postIdea: 'Lifestyle shot featuring the product.', instagramPostType: 'Post with Image' },
+      { id: 23, date: '2025-02-27', day: 'Thursday', contentType: 'Poll', postIdea: 'Engage with a fun poll question.', instagramPostType: 'Poll (Story)' },
+      { id: 24, date: '2025-02-28', day: 'Friday', contentType: 'Reminder', postIdea: 'Reminder of an ongoing promotion.', instagramPostType: 'Post with Image' },
+      { id: 25, date: '2025-03-01', day: 'Saturday', contentType: 'Carousel Post', postIdea: 'Highlight several customer testimonials.', instagramPostType: 'Carousel Post' },
+      { id: 26, date: '2025-03-02', day: 'Sunday', contentType: 'Story', postIdea: 'Behind the scenes look at production.', instagramPostType: 'Story' },
+      { id: 27, date: '2025-03-03', day: 'Monday', contentType: 'Reel', postIdea: 'Dynamic reel of the product in action.', instagramPostType: 'Reel' },
+      { id: 28, date: '2025-03-04', day: 'Tuesday', contentType: 'Post with Image', postIdea: 'Feature a striking product image with benefits listed.', instagramPostType: 'Post with Image' },
+      { id: 29, date: '2025-03-05', day: 'Wednesday', contentType: 'Trivia', postIdea: 'Fun trivia question about the product.', instagramPostType: 'Trivia (Story)' },
+      { id: 30, date: '2025-03-06', day: 'Thursday', contentType: 'Announcement', postIdea: 'Announce a new product launch or update.', instagramPostType: 'Post with Image' }
+    ];
+    
+    function renderSocialMediaCalendar() {
+      const calendarContainer = document.getElementById('calendar-days');
+      calendarContainer.innerHTML = "";
+      
+      socialMediaSchedule.forEach(item => {
+        const card = document.createElement('div');
+        card.classList.add('calendar-day');
+        
+        card.innerHTML = `
+          <div class="day-header">
+            <div class="day-date">${new Date(item.date).toLocaleDateString()}</div>
+            <div class="day-day">${item.day}</div>
+          </div>
+          <div class="day-task"><strong>Content Type:</strong> ${item.contentType}</div>
+          <div class="day-task"><strong>Post Idea:</strong> ${item.postIdea}</div>
+          <div class="day-notes"><strong>Instagram Post:</strong> ${item.instagramPostType}</div>
+        `;
+        
+        calendarContainer.appendChild(card);
+      });
+    }
+    
+    /***************************************
+     * 2) SEO Dashboard – CSV Data & Charts
+     ***************************************/
+    // Provided SEO CSV data (tab-delimited)
+    const seoCSVData = `"Keyword"	"SERP features"	"Volume"	"KD"	"CPC"	"Organic traffic"	"Paid traffic"	"Current position"	"Current URL"	"Current URL inside"	"Updated"	"Branded"	"Local"	"Navigational"	"Informational"	"Commercial"	"Transactional"
+"bone marrow tallow"	"Featured snippet, People also ask, Discussions and forums, Video preview"	"40"	"0"	""	"14"	"0"	"1"	"https://bonemadeskin.com/pages/learn-more"	"Featured snippet"	"2025-01-05 23:13:13"	"false"	"false"	"false"	"true"	"true"	"false"
+"beef tallow for rosacea"	"People also ask, Discussions and forums, Shopping, Thumbnail"	"50"	"0"	"0.72"	"5"	"0"	"3"	"https://bonemadeskin.com/blogs/bonemade-blog/understanding-rosacea-and-how-beef-tallow-moisturizer-can-help"	""	"2025-01-03 08:48:38"	"false"	"false"	"false"	"true"	"true"	"false"
+"tallow vs coconut oil for skin"	"People also ask, Discussions and forums"	"40"	"0"	""	"4"	"0"	"3"	"https://bonemadeskin.com/blogs/bonemade-blog/beef-tallow-vs-coconut-oil-which-is-better-for-your-skin"	""	"2024-12-26 12:10:39"	"false"	"false"	"false"	"true"	"false"	"false"
+"beef tallow vs coconut oil for skin"	"AI overview, People also ask, Video preview"	"50"	"0"	""	"5"	"0"	"4"	"https://bonemadeskin.com/blogs/bonemade-blog/beef-tallow-vs-coconut-oil-which-is-better-for-your-skin"	""	"2025-01-04 14:25:11"	"false"	"false"	"false"	"true"	"false"	"false"
+"beef tallow vs coconut oil"	"People also ask, Discussions and forums"	"50"	"0"	""	"3"	"0"	"6"	"https://bonemadeskin.com/blogs/bonemade-blog/beef-tallow-vs-coconut-oil-which-is-better-for-your-skin"	""	"2024-12-31 13:22:17"	"true"	"false"	"false"	"true"	"false"	"false"
+"tallow vs coconut oil"	"AI overview, People also ask, Discussions and forums"	"40"	"0"	""	"2"	"0"	"7"	"https://bonemadeskin.com/blogs/bonemade-blog/beef-tallow-vs-coconut-oil-which-is-better-for-your-skin"	""	"2024-12-31 12:31:49"	"false"	"false"	"false"	"true"	"false"	"false"
+"bonemiddel"	"Thumbnail, People also ask"	"80"	"0"	""	"3"	"0"	"8"	"https://bonemadeskin.com/collections/all"	""	"2024-12-20 02:59:13"	"false"	"false"	"false"	"true"	"false"	"false"
+"does beef tallow help acne"	"Featured snippet, People also ask, Discussions and forums, Video preview"	"400"	"1"	"0.25"	"1"	"0"	"19"	"https://bonemadeskin.com/blogs/bonemade-blog/how-beef-tallow-moisturizer-can-help-clear-acne"	""	"2024-12-21 02:36:48"	"true"	"false"	"false"	"true"	"false"	"false"
+"does tallow help acne"	"Featured snippet, People also ask, Thumbnail, Discussions and forums, Video preview"	"60"	"2"	"0.42"	"0"	"0"	"21"	"https://bonemadeskin.com/blogs/bonemade-blog/how-beef-tallow-moisturizer-can-help-clear-acne"	""	"2024-12-28 14:21:29"	"false"	"false"	"false"	"true"	"false"	"false"
+"bone tallow"	"People also ask, Thumbnail, Shopping"	"150"	"1"	""	"0"	"0"	"22"	"https://bonemadeskin.com/pages/learn-more"	""	"2025-01-05 07:37:19"	"true"	"false"	"false"	"true"	"false"	"false"
+"bone marrow for skin"	"Featured snippet, People also ask, Discussions and forums, Thumbnail, Video preview"	"10"	"0"	""	"0"	"0"	"23"	"https://bonemadeskin.com/"	""	"2024-12-20 04:12:30"	"false"	"false"	"false"	"true"	"true"	"false"
+"beef tallow and acne"	"Featured snippet, Shopping Ads, Thumbnail, People also ask, Discussions and forums, Shopping"	"60"	"1"	""	"0"	"0"	"24"	"https://bonemadeskin.com/blogs/bonemade-blog/how-beef-tallow-moisturizer-can-help-clear-acne"	""	"2024-12-20 16:00:00"	"false"	"false"	"false"	"true"	"false"	"false"
+"can beef tallow cause acne"	"Featured snippet, People also ask, Discussions and forums"	"150"	"1"	""	"0"	"0"	"24"	"https://bonemadeskin.com/blogs/bonemade-blog/how-beef-tallow-moisturizer-can-help-clear-acne"	""	"2025-01-01 03:56:41"	"false"	"false"	"false"	"true"	"false"	"false"
+"does beef tallow cause acne"	"Featured snippet, People also ask, Discussions and forums"	"80"	"1"	""	"0"	"0"	"25"	"https://bonemadeskin.com/blogs/bonemade-blog/how-beef-tallow-moisturizer-can-help-clear-acne"	""	"2025-01-04 15:52:54"	"false"	"false"	"false"	"true"	"false"	"false"
+"does beef tallow help with acne"	"Featured snippet, People also ask, Discussions and forums, Video preview"	"60"	"2"	""	"0"	"0"	"32"	"https://bonemadeskin.com/blogs/bonemade-blog/how-beef-tallow-moisturizer-can-help-clear-acne"	""	"2025-01-08 12:14:49"	"false"	"false"	"false"	"true"	"false"	"false"
+"how to use beef tallow for skin"	"Featured snippet, People also ask, Discussions and forums, Video preview"	"100"	"2"	""	"0"	"0"	"32"	"https://bonemadeskin.com/blogs/bonemade-blog/how-to-use-beef-tallow-balm-for-post-workout-skin-care"	""	"2024-12-30 17:53:34"	"true"	"false"	"false"	"true"	"false"	"false"
+"is beef tallow good for acne"	"Featured snippet, People also ask, Discussions and forums"	"250"	"1"	""	"0"	"0"	"33"	"https://bonemadeskin.com/blogs/bonemade-blog/how-beef-tallow-moisturizer-can-help-clear-acne"	""	"2024-12-29 23:08:20"	"false"	"false"	"false"	"true"	"false"	"false"
+"organic beef tallow for skin"	"Shopping, Thumbnail, People also ask, Discussions and forums, Video preview"	"200"	"2"	"1.27"	"0"	"0"	"34"	"https://bonemadeskin.com/blogs/bonemade-blog/organic-beef-tallow-skin-care-vs-traditional-moisturizers-whats-the-difference"	""	"2024-12-23 04:14:37"	"false"	"false"	"false"	"true"	"true"	"false"
+"beef tallow for acne"	"People also ask, Discussions and forums, Shopping Ads, Thumbnail, Shopping, Video preview"	"10"	"1"	""	"0"	"0"	"35"	"https://bonemadeskin.com/blogs/bonemade-blog/how-beef-tallow-moisturizer-can-help-clear-acne"	""	"2024-12-27 02:02:38"	"false"	"false"	"false"	"true"	"false"	"false"
+"bone marrow oil"	"People also ask, Video preview"	"80"	"0"	"0.24"	"0"	"0"	"36"	"https://bonemadeskin.com/products/premium-bone-marrow-tallow-face-body-balm"	""	"2024-12-20 17:25:51"	"false"	"false"	"false"	"true"	"true"	"true"
+"best tallow for skin"	"Shopping Ads, Thumbnail, People also ask, Shopping, Discussions and forums, Video preview"	"1000"	"1"	"0.53"	"0"	"0"	"37"	"https://bonemadeskin.com/blogs/bonemade-blog/how-to-choose-the-best-organic-beef-tallow-moisturizer-for-dry-and-sensitive-skin"	""	"2025-01-08 02:04:48"	"false"	"false"	"false"	"true"	"true"	"true"
+"tallow balm uses"	"People also ask, Shopping, Thumbnail, Discussions and forums, Video preview"	"20"	"0"	"0.88"	"0"	"0"	"37"	"https://bonemadeskin.com/blogs/bonemade-blog/how-to-use-beef-tallow-balm-for-post-workout-skin-care"	""	"2024-12-28 15:27:03"	"false"	"false"	"false"	"true"	"false"	"false"
+"tallow balm with coconut oil"	"Shopping Ads, Thumbnail, People also ask, Top stories, Discussions and forums, Video preview"	"20"	"1"	""	"0"	"0"	"38"	"https://bonemadeskin.com/blogs/bonemade-blog/beef-tallow-vs-coconut-oil-which-is-better-for-your-skin"	""	"2025-01-06 08:12:32"	"false"	"false"	"false"	"true"	"false"	"false"
+"does beef tallow clog pores"	"Featured snippet, Thumbnail, People also ask, Discussions and forums"	"1000"	"0"	"0.03"	"0"	"0"	"38"	"https://bonemadeskin.com/blogs/bonemade-blog/how-beef-tallow-moisturizer-can-help-clear-acne"	""	"2025-01-07 00:00:49"	"true"	"false"	"false"	"true"	"false"	"false"
+"beef tallow for face benefits"	"Featured snippet, People also ask, Discussions and forums, Shopping, Thumbnail"	"100"	"6"	"0.27"	"0"	"0"	"39"	"https://bonemadeskin.com/blogs/bonemade-blog/the-surprising-benefits-of-natural-skin-care-products-made-with-beef-tallow"	""	"2025-01-04 20:28:26"	"false"	"false"	"false"	"true"	"false"	"false"
+"benefits of beef tallow on face"	"People also ask, Discussions and forums, Video preview"	"150"	"5"	""	"0"	"0"	"39"	"https://bonemadeskin.com/blogs/bonemade-blog/understanding-rosacea-and-how-beef-tallow-moisturizer-can-help"	""	"2024-12-31 13:16:29"	"false"	"false"	"false"	"true"	"false"	"false"
+"is tallow good for acne"	"Featured snippet, People also ask, Thumbnail, Discussions and forums"	"90"	"1"	""	"0"	"0"	"39"	"https://bonemadeskin.com/blogs/bonemade-blog/how-beef-tallow-moisturizer-can-help-clear-acne"	""	"2025-01-02 13:34:25"	"false"	"false"	"false"	"true"	"false"	"false"
+"beef tallow acne"	"People also ask, Discussions and forums, Shopping, Thumbnail"	"200"	"0"	""	"0"	"0"	"40"	"https://bonemadeskin.com/blogs/bonemade-blog/how-beef-tallow-moisturizer-can-help-clear-acne"	""	"2025-01-07 14:29:30"	"true"	"false"	"false"	"true"	"false"	"false"
+"beef tallow moisturizer benefits"	"Featured snippet, People also ask, Discussions and forums"	"100"	"9"	""	"0"	"0"	"40"	"https://bonemadeskin.com/blogs/bonemade-blog/why-beef-tallow-moisturizer-is-the-best-natural-skin-care-solution"	""	"2024-12-22 03:22:09"	"true"	"false"	"false"	"true"	"false"	"false"
+"benefits of beef tallow for skin"	"People also ask, Discussions and forums, Video preview"	"1400"	"4"	"0.03"	"0"	"0"	"43"	"https://bonemadeskin.com/blogs/bonemade-blog/understanding-rosacea-and-how-beef-tallow-moisturizer-can-help"	""	"2025-01-03 01:17:23"	"true"	"false"	"false"	"true"	"false"	"false"
+"tallow balm benefits"	"People also ask, Shopping, Thumbnail, Discussions and forums"	"300"	"0"	"0.04"	"0"	"0"	"44"	"https://bonemadeskin.com/blogs/bonemade-blog/how-to-incorporate-beef-tallow-balm-into-your-daily-skincare-routine"	""	"2025-01-08 04:50:32"	"false"	"false"	"false"	"true"	"false"	"false"
+"benefits of beef tallow on skin"	"People also ask, Discussions and forums, Top stories, Thumbnail"	"150"	"3"	"0.15"	"0"	"0"	"44"	"https://bonemadeskin.com/blogs/bonemade-blog/the-surprising-benefits-of-natural-skin-care-products-made-with-beef-tallow"	""	"2024-12-24 16:48:27"	"true"	"false"	"false"	"true"	"false"	"false"
+"tallow balm before and after"	"Thumbnail, People also ask, Shopping, Video preview"	"50"	"0"	""	"0"	"0"	"44"	"https://bonemadeskin.com/blogs/bonemade-blog/how-to-incorporate-beef-tallow-balm-into-your-daily-skincare-routine"	""	"2024-12-21 18:11:39"	"false"	"false"	"false"	"true"	"false"	"false"
+"bone marrow cream"	"Shopping, Thumbnail, People also ask, Image pack, Video preview"	"10"	"0"	""	"0"	"0"	"44"	"https://bonemadeskin.com/blogs/bonemade-blog/how-bone-marrow-tallow-balms-can-help-heal-dry-and-damaged-skin"	""	"2024-12-27 03:56:04"	"false"	"false"	"false"	"true"	"true"	"true"
+"beef tallow skin benefits"	"People also ask, Discussions and forums"	"600"	"3"	"0.03"	"0"	"0"	"45"	"https://bonemadeskin.com/blogs/bonemade-blog/the-surprising-benefits-of-natural-skin-care-products-made-with-beef-tallow"	""	"2024-12-24 14:11:54"	"true"	"false"	"false"	"true"	"false"	"false"
+"beef tallow benefits for skin"	"AI overview, People also ask, Discussions and forums, Video preview"	"300"	"4"	"0.19"	"0"	"0"	"52"	"https://bonemadeskin.com/blogs/bonemade-blog/beef-tallow-for-skin-health"	""	"2024-12-31 09:05:55"	"true"	"false"	"false"	"true"	"false"	"false"
+"tallow face cream benefits"	"People also ask, Discussions and forums, Shopping, Thumbnail"	"50"	"1"	""	"0"	"0"	"52"	"https://bonemadeskin.com/blogs/bonemade-blog/how-bone-marrow-tallow-balms-can-help-heal-dry-and-damaged-skin"	""	"2025-01-07 11:17:29"	"false"	"false"	"false"	"true"	"false"	"false"
+"beef tallow lotion benefits"	"People also ask, Discussions and forums"	"40"	"3"	"0.16"	"0"	"0"	"54"	"https://bonemadeskin.com/blogs/bonemade-blog/the-surprising-benefits-of-natural-skin-care-products-made-with-beef-tallow"	""	"2024-12-19 01:20:13"	"true"	"false"	"false"	"true"	"false"	"false"
+"does tallow clog pores"	"AI overview, Featured snippet, Thumbnail, People also ask, Discussions and forums"	"300"	"0"	"0.05"	"0"	"0"	"56"	"https://bonemadeskin.com/blogs/bonemade-blog/how-beef-tallow-moisturizer-can-help-clear-acne"	""	"2024-12-23 11:31:01"	"false"	"false"	"false"	"true"	"false"	"false"
+"tallow lotion benefits"	"People also ask, Shopping, Thumbnail, Video preview, Discussions and forums"	"70"	"1"	"0.17"	"0"	"0"	"58"	"https://bonemadeskin.com/blogs/bonemade-blog/top-benefits-of-beef-tallow-for-skin-health"	""	"2024-12-31 23:21:24"	"false"	"false"	"false"	"true"	"false"	"false"
+"is tallow non comedogenic"	"People also ask, Discussions and forums"	"80"	"0"	"0.04"	"0"	"0"	"58"	"https://bonemadeskin.com/blogs/bonemade-blog/5-reasons-why-beef-tallow-is-an-excellent-moisturizer"	""	"2024-12-25 11:53:45"	"false"	"false"	"false"	"true"	"false"	"false"
+"beef tallow uses for skin"	"Featured snippet, People also ask, Discussions and forums, Shopping, Thumbnail, Video preview"	"20"	"4"	""	"0"	"0"	"59"	"https://bonemadeskin.com/blogs/bonemade-blog/5-reasons-why-beef-tallow-is-an-excellent-moisturizer"	""	"2024-12-30 15:35:51"	"true"	"false"	"false"	"true"	"false"	"false"
+"is bone marrow fat"	"Featured snippet, People also ask, Thumbnail, Video preview"	"400"	"28"	""	"0"	"0"	"59"	"https://bonemadeskin.com/pages/learn-more"	""	"2025-01-02 19:32:55"	"false"	"false"	"false"	"true"	"false"	"false"
+"best beef tallow for skin"	"People also ask, Shopping, Thumbnail, Video preview"	"2600"	"1"	"0.50"	"0"	"0"	"60"	"https://bonemadeskin.com/blogs/bonemade-blog/understanding-rosacea-and-how-beef-tallow-moisturizer-can-help"	""	"2025-01-05 16:46:16"	"false"	"false"	"false"	"true"	"true"	"false"
+"is beef tallow non comedogenic"	"Featured snippet, Thumbnail, People also ask"	"300"	"0"	"0.15"	"0"	"0"	"61"	"https://bonemadeskin.com/blogs/bonemade-blog/how-to-use-beef-tallow-balm-for-post-workout-skin-care"	""	"2025-01-03 18:12:24"	"false"	"false"	"false"	"true"	"false"	"false"
+"tallow skin benefits"	"People also ask, Discussions and forums"	"200"	"3"	"0.16"	"0"	"0"	"62"	"https://bonemadeskin.com/blogs/bonemade-blog/top-benefits-of-beef-tallow-for-skin-health"	""	"2025-01-05 01:03:48"	"false"	"false"	"false"	"true"	"false"	"false"
+"benefits of tallow on skin"	"AI overview, People also ask, Discussions and forums"	"20"	"3"	""	"0"	"0"	"63"	"https://bonemadeskin.com/blogs/bonemade-blog/top-benefits-of-beef-tallow-for-skin-health"	""	"2024-12-31 10:28:27"	"false"	"false"	"false"	"true"	"false"	"false"
+"tallow for skin benefits"	"Featured snippet, People also ask, Discussions and forums, Shopping, Thumbnail"	"450"	"2"	"0.05"	"0"	"0"	"63"	"https://bonemadeskin.com/blogs/bonemade-blog/top-benefits-of-beef-tallow-for-skin-health"	""	"2024-12-28 07:49:34"	"false"	"false"	"false"	"true"	"false"	"false"
+"benefits of tallow for skin"	"AI overview, People also ask, Discussions and forums"	"1000"	"2"	"0.04"	"0"	"0"	"65"	"https://bonemadeskin.com/blogs/bonemade-blog/top-benefits-of-beef-tallow-for-skin-health"	""	"2025-01-04 08:05:19"	"false"	"false"	"false"	"true"	"false"	"false"
+"tallow for acne"	"Thumbnail, People also ask, Discussions and forums, Shopping"	"100"	"0"	"0.00"	"0"	"0"	"65"	"https://bonemadeskin.com/blogs/bonemade-blog/how-beef-tallow-moisturizer-can-help-clear-acne"	""	"2024-12-21 16:49:51"	"false"	"false"	"false"	"true"	"false"	"false"
+"tallow cream benefits"	"People also ask, Discussions and forums, Video preview"	"60"	"0"	"0.35"	"0"	"0"	"65"	"https://bonemadeskin.com/blogs/bonemade-blog/how-bone-marrow-tallow-balms-can-help-heal-dry-and-damaged-skin"	""	"2024-12-31 17:11:07"	"false"	"false"	"false"	"true"	"false"	"false"
+"is beef tallow comedogenic"	"Featured snippet, People also ask, Video preview"	"900"	"0"	""	"0"	"0"	"67"	"https://bonemadeskin.com/blogs/bonemade-blog/how-beef-tallow-moisturizer-can-help-clear-acne"	""	"2025-01-07 10:36:30"	"false"	"false"	"false"	"true"	"false"	"false"
+"tallow skin care benefits"	"People also ask, Discussions and forums"	"20"	"4"	"0.65"	"0"	"0"	"68"	"https://bonemadeskin.com/blogs/bonemade-blog/top-benefits-of-beef-tallow-for-skin-health"	""	"2024-12-20 05:38:01"	"false"	"false"	"false"	"true"	"false"	"false"
+"marrow oil"	"Shopping, Thumbnail, People also ask, Discussions and forums, Video preview"	"60"	"0"	""	"0"	"0"	"70"	"https://bonemadeskin.com/products/premium-bone-marrow-tallow-face-body-balm"	""	"2025-01-04 18:35:25"	"false"	"false"	"false"	"true"	"true"	"true"
+"tallow.balm"	"Shopping Ads, Thumbnail, People also ask, Shopping, Discussions and forums"	"30"	"3"	""	"0"	"0"	"71"	"https://bonemadeskin.com/products/copy-of-classic-bone-marrow-tallow-face-body-balm-eucalyptus-bergamot-scent"	""	"2024-12-22 06:27:02"	"false"	"false"	"false"	"true"	"true"	"false"
+"beef fat moisturizer"	"Shopping Ads, Thumbnail, Shopping, People also ask, Video preview"	"30"	"1"	"0.52"	"0"	"0"	"72"	"https://bonemadeskin.com/blogs/bonemade-blog/5-reasons-why-beef-tallow-is-an-excellent-moisturizer"	""	"2025-01-04 12:20:47"	"false"	"false"	"false"	"true"	"true"	"false"
+"beef tallow skincare"	"Shopping, Thumbnail, People also ask, Top stories, Discussions and forums, Video preview"	"600"	"2"	"0.68"	"0"	"0"	"73"	"https://bonemadeskin.com/blogs/bonemade-blog/a-beginner-s-guide-to-using-beef-tallow-in-your-skin-care-routine"	""	"2024-12-24 18:23:55"	"false"	"false"	"false"	"true"	"false"	"false"
+"beef tallow for moisturizer"	"People also ask, Shopping, Thumbnail"	"20"	"2"	""	"0"	"0"	"74"	"https://bonemadeskin.com/blogs/bonemade-blog/5-reasons-why-beef-tallow-is-an-excellent-moisturizer"	""	"2024-12-29 08:14:25"	"false"	"false"	"false"	"true"	"true"	"true"
+"is beef tallow good for your skin"	"Featured snippet, People also ask, Discussions and forums, Video preview"	"300"	"5"	"0.27"	"0"	"0"	"75"	"https://bonemadeskin.com/blogs/bonemade-blog/understanding-rosacea-and-how-beef-tallow-moisturizer-can-help"	""	"2025-01-07 08:37:50"	"false"	"false"	"false"	"true"	"false"	"false"
+"is beef tallow good for your face"	"AI overview, People also ask, Discussions and forums, Video preview, Bottom ads"	"150"	"4"	"0.04"	"0"	"0"	"77"	"https://bonemadeskin.com/blogs/bonemade-blog/beef-tallow-balm-vs-traditional-balms-which-is-better-for-your-skin"	""	"2024-12-20 12:32:45"	"true"	"false"	"false"	"true"	"false"	"false"
+"beef tallow for skin benefits"	"Shopping, Thumbnail, People also ask, Discussions and forums, Video preview"	"2300"	"5"	"0.04"	"0"	"0"	"77"	"https://bonemadeskin.com/blogs/bonemade-blog/understanding-rosacea-and-how-beef-tallow-moisturizer-can-help"	""	"2025-01-08 01:19:18"	"true"	"false"	"false"	"true"	"false"	"false"
+"is tallow bad for your skin"	"Featured snippet, People also ask, Discussions and forums, Video preview"	"60"	"6"	""	"0"	"0"	"79"	"https://bonemadeskin.com/blogs/bonemade-blog/understanding-rosacea-and-how-beef-tallow-moisturizer-can-help"	""	"2024-12-31 11:46:00"	"false"	"false"	"false"	"true"	"false"	"false"
+"is beef tallow a good moisturizer"	"People also ask, Discussions and forums, Video preview"	"40"	"5"	""	"0"	"0"	"85"	"https://bonemadeskin.com/blogs/bonemade-blog/why-beef-tallow-moisturizer-is-the-best-natural-skin-care-solution"	""	"2024-12-28 04:02:45"	"false"	"false"	"false"	"true"	"false"	"false"
+"beef tallow good for skin"	"Shopping Ads, Thumbnail, People also ask, Video preview, Discussions and forums, Shopping"	"70"	"3"	"0.03"	"0"	"0"	"86"	"https://bonemadeskin.com/blogs/bonemade-blog/understanding-rosacea-and-how-beef-tallow-moisturizer-can-help"	""	"2024-12-23 16:44:45"	"true"	"false"	"false"	"true"	"false"	"false"
+"tallow skin before and after"	"Thumbnail, People also ask"	"300"	"0"	"0.03"	"0"	"0"	"88"	"https://bonemadeskin.com/blogs/bonemade-blog/understanding-rosacea-and-how-beef-tallow-moisturizer-can-help"	""	"2024-12-21 17:46:29"	"false"	"false"	"false"	"true"	"false"	"false"
+"using tallow on skin"	"Featured snippet, People also ask, Discussions and forums"	"40"	"3"	"0.07"	"0"	"0"	"88"	"https://bonemadeskin.com/blogs/bonemade-blog/a-beginner-s-guide-to-using-beef-tallow-in-your-skin-care-routine"	""	"2024-12-28 22:39:42"	"false"	"false"	"false"	"true"	"false"	"false"
+"how to use tallow on skin"	"Featured snippet, People also ask, Discussions and forums"	"150"	"2"	"0.16"	"0"	"0"	"89"	"https://bonemadeskin.com/blogs/bonemade-blog/a-beginner-s-guide-to-using-beef-tallow-in-your-skin-care-routine"	""	"2024-12-29 00:23:55"	"false"	"false"	"false"	"true"	"false"	"false"
+"what is tallow balm used for"	"Featured snippet, People also ask, Discussions and forums"	"20"	"0"	""	"0"	"0"	"91"	"https://bonemadeskin.com/blogs/bonemade-blog/beef-tallow-balm-vs-traditional-balms-which-is-better-for-your-skin"	""	"2025-01-03 11:48:55"	"false"	"false"	"false"	"true"	"false"	"false"
+"benefits of tallow balm"	"People also ask, Discussions and forums"	"40"	"0"	"0.30"	"0"	"0"	"93"	"https://bonemadeskin.com/blogs/bonemade-blog/how-to-incorporate-beef-tallow-balm-into-your-daily-skincare-routine"	""	"2025-01-07 04:24:48"	"false"	"false"	"false"	"true"	"false"	"false"
+"tallow based skin care"	"Shopping, Thumbnail, People also ask, Discussions and forums"	"40"	"4"	"1.33"	"0"	"0"	"95"	"https://bonemadeskin.com/blogs/bonemade-blog/a-beginner-s-guide-to-using-beef-tallow-in-your-skin-care-routine"	""	"2024-12-28 20:14:13"	"false"	"false"	"false"	"true"	"true"	"false"`;
+    
+    // Set the textarea's value to the provided SEO CSV data.
+    document.getElementById("csvTextarea").value = seoCSVData.trim();
+    
+    let trafficChart, keywordPositionChart;
+    
+    // When the button is clicked, parse the CSV and generate the charts.
+    document.getElementById("parseButton").addEventListener("click", () => {
+      document.getElementById("seo-error-container").textContent = "";
+      const inputData = document.getElementById("csvTextarea").value.trim();
+      
       if (!inputData) {
-        errorContainer.textContent = "Error: No CSV data provided.";
+        document.getElementById("seo-error-container").textContent = "Error: No CSV data provided.";
         return;
       }
-
-      // Parse using Papa Parse
+      
       Papa.parse(inputData, {
         header: true,
+        delimiter: "\t", // Use tab-delimited parsing
         skipEmptyLines: true,
         complete: function(results) {
           if (results.errors && results.errors.length > 0) {
-            // Display the first error for brevity
-            errorContainer.textContent = "Parsing Error: " + results.errors[0].message;
+            document.getElementById("seo-error-container").textContent = "Parsing Error: " + results.errors[0].message;
             return;
           }
-          // Process the CSV data
-          generateCharts(results.data);
+          generateSEOCharts(results.data);
         }
       });
     });
-
-    /**
-     * Generate Charts
-     * @param {Array} data - Parsed CSV data (array of objects).
-     */
-    function generateCharts(data) {
-      try {
-        // =============================
-        // 1) Traffic Trend (Line Chart)
-        // =============================
-        const previousTrafficPoints = [];
-        const currentTrafficPoints = [];
-
-        data.forEach((row, index) => {
-          const prevDateStr = row["Previous date"] ? row["Previous date"].trim() : "";
-          const currDateStr = row["Current date"] ? row["Current date"].trim() : "";
-          const prevTrafficStr = row["Previous organic traffic"] ? row["Previous organic traffic"].trim() : "";
-          const currTrafficStr = row["Current organic traffic"] ? row["Current organic traffic"].trim() : "";
-
-          const prevTraffic = prevTrafficStr !== "" ? parseFloat(prevTrafficStr) : null;
-          const currTraffic = currTrafficStr !== "" ? parseFloat(currTrafficStr) : null;
-
-          let prevDate = new Date(prevDateStr);
-          if (isNaN(prevDate.getTime())) {
-            prevDate = index; // fallback if date can't parse
-          }
-          let currDate = new Date(currDateStr);
-          if (isNaN(currDate.getTime())) {
-            currDate = index;
-          }
-
-          if (prevTraffic !== null && !isNaN(prevTraffic)) {
-            previousTrafficPoints.push({ x: prevDate, y: prevTraffic });
-          }
-          if (currTraffic !== null && !isNaN(currTraffic)) {
-            currentTrafficPoints.push({ x: currDate, y: currTraffic });
-          }
-        });
-
-        // Sort by x if we used actual Date objects
-        previousTrafficPoints.sort((a, b) => +a.x - +b.x);
-        currentTrafficPoints.sort((a, b) => +a.x - +b.x);
-
-        // Destroy existing chart instances if re-parsing
-        if (trafficChart) trafficChart.destroy();
-
-        const trafficCtx = document.getElementById("trafficChart").getContext("2d");
-        trafficChart = new Chart(trafficCtx, {
-          type: "line",
-          data: {
-            datasets: [
-              {
-                label: "Previous Organic Traffic",
-                data: previousTrafficPoints,
-                borderColor: "#3498db",
-                backgroundColor: "rgba(52, 152, 219, 0.1)",
-                tension: 0.2
-              },
-              {
-                label: "Current Organic Traffic",
-                data: currentTrafficPoints,
-                borderColor: "#e67e22",
-                backgroundColor: "rgba(230, 126, 34, 0.1)",
-                tension: 0.2
-              }
-            ]
+    
+    // Generate two charts:
+    // 1. Top 10 Keywords by Organic Traffic
+    // 2. Top 10 Keywords by Search Volume
+    function generateSEOCharts(data) {
+      // Filter and sort data for Organic Traffic chart.
+      const organicData = data.filter(row => row["Organic traffic"] !== "").map(row => ({
+        keyword: row["Keyword"],
+        organic: parseFloat(row["Organic traffic"])
+      }));
+      organicData.sort((a, b) => b.organic - a.organic);
+      const topOrganic = organicData.slice(0, 10);
+      
+      const organicKeywords = topOrganic.map(item => item.keyword);
+      const organicValues = topOrganic.map(item => item.organic);
+      
+      if (trafficChart) trafficChart.destroy();
+      const trafficCtx = document.getElementById("trafficChart").getContext("2d");
+      trafficChart = new Chart(trafficCtx, {
+        type: "bar",
+        data: {
+          labels: organicKeywords,
+          datasets: [{
+            label: "Organic Traffic",
+            data: organicValues,
+            backgroundColor: "rgba(52, 152, 219, 0.6)",
+            borderColor: "rgba(52, 152, 219, 1)",
+            borderWidth: 1
+          }]
+        },
+        options: {
+          plugins: {
+            legend: { display: false },
+            title: {
+              display: true,
+              text: "Top 10 Keywords by Organic Traffic",
+              font: { family: 'Montserrat' }
+            }
           },
-          options: {
-            responsive: true,
-            scales: {
-              x: {
-                type: "time",
-                time: {
-                  unit: "day"
-                },
-                title: {
-                  display: true,
-                  text: "Date / Index"
-                }
-              },
-              y: {
-                beginAtZero: true,
-                title: {
-                  display: true,
-                  text: "Organic Traffic"
-                }
-              }
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: { font: { family: 'Roboto' } }
+            },
+            x: {
+              ticks: { font: { family: 'Roboto' }, autoSkip: false }
             }
           }
-        });
-
-        // =============================
-        // 2) Keyword Position (Bar Chart)
-        // =============================
-        const keywordLabels = [];
-        const positionChanges = [];
-
-        data.forEach((row) => {
-          const keyword = row["Keyword"] ? row["Keyword"].trim() : "";
-          const positionChangeStr = row["Position change"] ? row["Position change"].trim() : "";
-
-          if (keyword && positionChangeStr) {
-            keywordLabels.push(keyword);
-            positionChanges.push(parseFloat(positionChangeStr));
-          }
-        });
-
-        if (keywordPositionChart) keywordPositionChart.destroy();
-
-        const positionCtx = document.getElementById("keywordPositionChart").getContext("2d");
-        keywordPositionChart = new Chart(positionCtx, {
-          type: "bar",
-          data: {
-            labels: keywordLabels,
-            datasets: [
-              {
-                label: "Position Change",
-                data: positionChanges,
-                backgroundColor: "rgba(46, 204, 113, 0.6)",
-                borderColor: "#2ecc71",
-                borderWidth: 1
-              }
-            ]
+        }
+      });
+      
+      // Filter and sort data for Volume chart.
+      const volumeData = data.filter(row => row["Volume"] !== "").map(row => ({
+        keyword: row["Keyword"],
+        volume: parseFloat(row["Volume"])
+      }));
+      volumeData.sort((a, b) => b.volume - a.volume);
+      const topVolume = volumeData.slice(0, 10);
+      
+      const volumeKeywords = topVolume.map(item => item.keyword);
+      const volumeValues = topVolume.map(item => item.volume);
+      
+      if (keywordPositionChart) keywordPositionChart.destroy();
+      const volumeCtx = document.getElementById("keywordPositionChart").getContext("2d");
+      keywordPositionChart = new Chart(volumeCtx, {
+        type: "bar",
+        data: {
+          labels: volumeKeywords,
+          datasets: [{
+            label: "Search Volume",
+            data: volumeValues,
+            backgroundColor: "rgba(231, 76, 60, 0.6)",
+            borderColor: "rgba(231, 76, 60, 1)",
+            borderWidth: 1
+          }]
+        },
+        options: {
+          plugins: {
+            legend: { display: false },
+            title: {
+              display: true,
+              text: "Top 10 Keywords by Search Volume",
+              font: { family: 'Montserrat' }
+            }
           },
-          options: {
-            responsive: true,
-            scales: {
-              x: {
-                ticks: {
-                  maxRotation: 90,
-                  minRotation: 45
-                },
-                title: {
-                  display: true,
-                  text: "Keywords"
-                }
-              },
-              y: {
-                beginAtZero: true,
-                title: {
-                  display: true,
-                  text: "Position Change"
-                }
-              }
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: { font: { family: 'Roboto' } }
+            },
+            x: {
+              ticks: { font: { family: 'Roboto' }, autoSkip: false }
             }
           }
-        });
-
-      } catch (err) {
-        errorContainer.textContent = "Error generating charts: " + err.message;
-      }
+        }
+      });
     }
+    
+    // Initial render of the Social Media Content Calendar.
+    renderSocialMediaCalendar();
   </script>
-
 </body>
 </html>
